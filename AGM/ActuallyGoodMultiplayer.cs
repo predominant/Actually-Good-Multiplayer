@@ -1,6 +1,7 @@
 using System;
 using AGM.Client.Windows;
 using AGM.Core;
+using AGM.Logging;
 using UnityEngine;
 
 namespace AGM
@@ -27,7 +28,7 @@ namespace AGM
             
             GameObject.DontDestroyOnLoad(this);
             
-            this._networkManager = new NetworkManager();
+            this._networkManager = new NetworkManager(new UnityLogger());
             
             this._mainWindow = this.gameObject.AddComponent<MainWindow>();
             this._chatWindow = this.gameObject.AddComponent<ChatWindow>();
@@ -36,51 +37,6 @@ namespace AGM
         
         void Update()
         {
-        }
-
-        public void DebugLog(string msg)
-        {
-            this.DebugLog(LogType.Log, msg);
-        }
-        
-        public void DebugLog(LogType logType, string msg)
-        {
-            // Detect if we're in KSP or console
-            if (Application.isBatchMode)
-            {
-                // Console mode
-                switch (logType)
-                {
-                    case LogType.Warning:
-                        Console.WriteLine("[AGM] WARNING: " + msg);
-                        break;
-                    case LogType.Error:
-                        Console.WriteLine("[AGM] ERROR: " + msg);
-                        break;
-                    case LogType.Log:
-                    default:
-                        Console.WriteLine("[AGM] " + msg);
-                        break;
-                }
-                return;
-            }
-            else
-            {
-                switch (logType)
-                {
-                    case LogType.Warning:
-                        Debug.LogWarning("[AGM] " + msg);
-                        break;
-                    case LogType.Error:
-                        Debug.LogError("[AGM] " + msg);
-                        break;
-                    case LogType.Log:
-                    default:
-                        Debug.Log("[AGM] " + msg);
-                        break;
-                }
-            }
-            
         }
     }
 }

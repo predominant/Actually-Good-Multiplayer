@@ -8,9 +8,9 @@
         <ProjectGuid>{C870AEF4-58EA-4B0A-8C51-01E9A3FC5F61}</ProjectGuid>
         <OutputType>Exe</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>AGM.Console</RootNamespace>
-        <AssemblyName>AGM.Console</AssemblyName>
-        <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+        <RootNamespace>AGM.Server</RootNamespace>
+        <AssemblyName>AGM.Server</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     </PropertyGroup>
@@ -36,7 +36,7 @@
     <ItemGroup>
         <Reference Include="mscorlib" />
         <Reference Include="Spectre.Console, Version=0.0.0.0, Culture=neutral, PublicKeyToken=170fe27f8af98a30, processorArchitecture=MSIL">
-          <HintPath>..\packages\Spectre.Console.0.51.2-preview.0.1\lib\netstandard2.0\Spectre.Console.dll</HintPath>
+          <HintPath>..\packages\Spectre.Console.0.54.0\lib\netstandard2.0\Spectre.Console.dll</HintPath>
         </Reference>
         <Reference Include="Spectre.Console.Cli, Version=0.0.0.0, Culture=neutral, PublicKeyToken=170fe27f8af98a30, processorArchitecture=MSIL">
           <HintPath>..\packages\Spectre.Console.Cli.0.51.2-preview.0.1\lib\netstandard2.0\Spectre.Console.Cli.dll</HintPath>

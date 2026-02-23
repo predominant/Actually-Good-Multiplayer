@@ -85,7 +85,7 @@ public class ChatWindow : MonoBehaviour
         private void OnChatReceived(ChatMessage message)
         {
             var formattedMessage = $"[{message.PlayerName}]: {message.Message}";
-            Debug.Log($"[AGM][Chat] {formattedMessage}");
+            this.networkManager.Logger.Info($"[AGM][Chat] {formattedMessage}");
             this.chatMessages.Add(formattedMessage);
             if (this.chatMessages.Count > 50)
             {

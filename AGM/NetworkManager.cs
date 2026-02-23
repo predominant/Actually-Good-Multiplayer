@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Threading;
 using AGM.Core;
+using AGM.Logging;
 using AGM.NetworkMessages;
 using Lidgren.Network;
 using UnityEngine;
+using ILogger = UnityEngine.ILogger;
 
 namespace AGM
 {
     public class NetworkManager
     {
         public static NetworkManager Instance { get; private set; }
+        public Logging.ILogger Logger { get; private set; }
         
         private NetServer _server;
         private NetClient _client;
@@ -18,23 +21,25 @@ namespace AGM
         public NetPeerConfiguration ServerConfig;
         public NetPeerConfiguration ClientConfig;
         
-        public NetworkManager()
+        public NetworkManager(Logging.ILogger logger)
         {
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] NetworkManager initializing...");
+            this.Logger = logger;
+            
+            this.Logger.Info("NetworkManager initializing...");
             if (Instance != null && Instance != this)
             {
                 return;
             }
             Instance = this;
-            
+
             this.ServerConfig = new NetPeerConfiguration("AGM");
             this.ServerConfig.Port = 6969;
-            this.ServerConfig.MaximumConnections = 100;
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] NetworkManager initialized server settings.");
-            
+            this.ServerConfig.MaximumConnections = 1000;
+            this.Logger.Info("NetworkManager initialized server settings.");
+
             this.ClientConfig = new NetPeerConfiguration("AGM");
             this.ClientConfig.AutoFlushSendQueue = false;
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] NetworkManager initialized client settings.");
+            this.Logger.Info("NetworkManager initialized client settings.");
         }
 
         public void OnDestroy()
@@ -48,7 +53,7 @@ namespace AGM
             this._server = new NetServer(this.ServerConfig);
             this._server.Start();
             this.ConnectionState = ConnectionState.ServerRunning;
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Server started on port " + this.ServerConfig.Port);
+            this.Logger.Info("Server started on port " + this.ServerConfig.Port);
         }
         
         public void StopServer()
@@ -58,17 +63,24 @@ namespace AGM
                 this._server.Shutdown("Server shutting down");
                 this._server = null;
                 this.ConnectionState = ConnectionState.Disconnected;
-                ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Server stopped.");
+                this.Logger.Info("Server stopped.");
             }
         }
         
         public void ConnectToServer(string ip, int port)
         {
             this._client = new NetClient(this.ClientConfig);
-            this._client.RegisterReceivedCallback(new SendOrPostCallback(this.ClientMessageReceived));
+            // this._client.RegisterReceivedCallback(new System.Threading.SendOrPostCallback(this.ClientMessageReceived));
             
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Connecting to server at " + ip + ":" + port);
+            this.Logger.Info("Connecting to server at " + ip + ":" + port);
             this.ConnectionState = ConnectionState.ClientConnected;
+        }
+
+        // For console apps: manually poll for messages
+        public void PollClientMessages()
+        {
+            if (this._client == null) return;
+            ClientMessageReceived(this._client);
         }
         
         public void DisconnectClient()
@@ -79,7 +91,7 @@ namespace AGM
             this._client.Disconnect("Client disconnecting");
             this._client = null;
             this.ConnectionState = ConnectionState.Disconnected;
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Client disconnected.");
+            this.Logger.Info("Client disconnected.");
         }
         
         private void ClientMessageReceived(object peer)
@@ -92,19 +104,19 @@ namespace AGM
                 {
                     case NetIncomingMessageType.StatusChanged:
                         var status = (NetConnectionStatus)msg.ReadByte();
-                        ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Client status changed: " + status);
+                        this.Logger.Info("Client status changed: " + status);
                         if (status == NetConnectionStatus.Disconnected)
                         {
                             this.ConnectionState = ConnectionState.Disconnected;
                         }
                         break;
                     case NetIncomingMessageType.Data:
-                        Debug.Log("[AGM] Received data message of length: " + msg.LengthBytes);
+                        this.Logger.Info("Received data message of length: " + msg.LengthBytes);
                         // var chatMsg = ChatMessage.Deserialize(msg);
                         // OnChatMessageReceived?.Invoke(chatMsg);
                         break;
                     default:
-                        ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Unhandled message type: " + msg.MessageType);
+                        this.Logger.Info("Unhandled message type: " + msg.MessageType);
                         break;
                 }
                 client.Recycle(msg);
@@ -117,14 +129,14 @@ namespace AGM
         {
             if (this._client == null || this.ConnectionState != ConnectionState.ClientConnected)
             {
-                ActuallyGoodMultiplayer.Instance.DebugLog(LogType.Warning, "[AGM] Cannot send chat message, client not connected.");
+                this.Logger.Info("Cannot send chat message, client not connected.");
                 return;
             }
             
             var outgoingMsg = this._client.CreateMessage(text);
             this._client.SendMessage(outgoingMsg, NetDeliveryMethod.ReliableOrdered);
             this._client.FlushSendQueue();
-            ActuallyGoodMultiplayer.Instance.DebugLog("[AGM] Sent chat message: " + text);
+            this.Logger.Info("Sent chat message: " + text);
         }
     }
 }
