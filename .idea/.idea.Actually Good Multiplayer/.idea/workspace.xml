@@ -9,29 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2372551-1a7c-470e-a42c-906c9ad257f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AGM.Server/App.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/App.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Logger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Logging/ConsoleLogger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Logging/ILogger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Logging/UnityLogger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/IPacket.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/LocalPlayerPacket.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/Packet.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/PacketType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/PlayerDisconnectPacket.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/SpawnPacket.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AGM/Packets/TransformPacket.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Actually Good Multiplayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Actually Good Multiplayer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM.Console/AGM.Console.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AGM.Console/AGM.Console.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM.Console/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AGM.Console/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM.Console/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/AGM.Console/packages.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM/AGM.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AGM/AGM.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM/ActuallyGoodMultiplayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AGM/ActuallyGoodMultiplayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AGM/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AGM/NetworkManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM/Windows/ChatWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AGM/Windows/ChatWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGM/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/AGM/packages.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Actually Good Multiplayer.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Actually Good Multiplayer.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AGM/RemoteVessel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AGM/RemoteVessel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,10 +98,10 @@
 }]]></component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1773979304414" />
-    <option name="spentUsd" value="0.014357749" />
+    <option name="spentUsd" value="0.0728095" />
   </component>
   <component name="RecapUselessUpdatesCounter">
-    <option name="suspendCountdown" value="7" />
+    <option name="suspendCountdown" value="6" />
   </component>
   <component name="RunManager" selected=".NET Project.AGM.Server">
     <configuration name="AGM.Console" type="DotNetProject" factoryName=".NET Project">
@@ -192,7 +172,7 @@
       <workItem from="1758505518441" duration="11394000" />
       <workItem from="1758789980333" duration="6146000" />
       <workItem from="1762572973643" duration="1755000" />
-      <workItem from="1771814561153" duration="2463000" />
+      <workItem from="1771814561153" duration="3918000" />
     </task>
     <servers />
   </component>

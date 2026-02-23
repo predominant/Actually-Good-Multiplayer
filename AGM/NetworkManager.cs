@@ -67,12 +67,13 @@ namespace AGM
             }
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         public void ConnectToServer(string ip, int port)
         {
             this._client = new NetClient(this.ClientConfig);
             // this._client.RegisterReceivedCallback(new System.Threading.SendOrPostCallback(this.ClientMessageReceived));
             
-            this.Logger.Info("Connecting to server at " + ip + ":" + port);
+            this.Logger.Info($"Connecting to server at {ip}:{port}...");
             this.ConnectionState = ConnectionState.ClientConnected;
         }
 
@@ -83,6 +84,7 @@ namespace AGM
             ClientMessageReceived(this._client);
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         public void DisconnectClient()
         {
             if (this._client == null)
@@ -104,19 +106,19 @@ namespace AGM
                 {
                     case NetIncomingMessageType.StatusChanged:
                         var status = (NetConnectionStatus)msg.ReadByte();
-                        this.Logger.Info("Client status changed: " + status);
+                        this.Logger.Info($"Client status changed: {status}");
                         if (status == NetConnectionStatus.Disconnected)
                         {
                             this.ConnectionState = ConnectionState.Disconnected;
                         }
                         break;
                     case NetIncomingMessageType.Data:
-                        this.Logger.Info("Received data message of length: " + msg.LengthBytes);
+                        this.Logger.Info($"Received data message of length: {msg.LengthBytes}");
                         // var chatMsg = ChatMessage.Deserialize(msg);
                         // OnChatMessageReceived?.Invoke(chatMsg);
                         break;
                     default:
-                        this.Logger.Info("Unhandled message type: " + msg.MessageType);
+                        this.Logger.Info($"Unhandled message type: {msg.MessageType}");
                         break;
                 }
                 client.Recycle(msg);
@@ -136,7 +138,7 @@ namespace AGM
             var outgoingMsg = this._client.CreateMessage(text);
             this._client.SendMessage(outgoingMsg, NetDeliveryMethod.ReliableOrdered);
             this._client.FlushSendQueue();
-            this.Logger.Info("Sent chat message: " + text);
+            this.Logger.Info($"Sent chat message: {text}");
         }
     }
 }
